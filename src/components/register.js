@@ -1,6 +1,7 @@
 import Form from "react-validation/build/form"
 import React, { Component } from 'react'
 import Input from "react-validation/build/input"
+import Select from "react-validation/build/select"
 import CheckButton from "react-validation/build/button"
 import { isEmail } from "validator"
 
@@ -54,14 +55,24 @@ export default class Register extends Component {
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
+        this.onChangeRole = this.onChangeRole.bind(this);
+        this.onChangeFullname = this.onChangeFullname.bind(this);
 
         this.state = {
+            fullname: '',
             username: '',
             email: '',
             password: '',
+            role: "1",
             successful: false,
             message: ''
         };
+    }
+
+    onChangeFullname(e) {
+        this.setState({
+            fullname: e.target.value
+        })
     }
 
     onChangeUsername(e) {
@@ -82,6 +93,13 @@ export default class Register extends Component {
         })
     }
 
+    onChangeRole(e) {
+        console.log(e.target.value)
+        this.setState({
+            role: e.target.value
+        })
+    }
+
     handleRegister(e) {
         e.preventDefault();
 
@@ -96,7 +114,9 @@ export default class Register extends Component {
             AuthService.register(
                 this.state.username,
                 this.state.email,
-                this.state.password
+                this.state.password,
+                this.state.role,
+                this.state.fullname
             ).then(
                 response => {
                     this.setState({
@@ -122,6 +142,7 @@ export default class Register extends Component {
     }
 
     render() {
+
         return (
             <div className="col-md-12">
                 <div className="card card-container">
@@ -139,6 +160,19 @@ export default class Register extends Component {
                     >
                         {!this.state.successful && (
                             <div>
+
+                                <div className="form-group">
+                                    <label htmlFor="fullname">Fullname</label>
+                                    <Input
+                                        type="text"
+                                        className="form-control"
+                                        name="fullname"
+                                        value={this.state.fullname}
+                                        onChange={this.onChangeFullname}
+                                        validations={[required]}
+                                    />
+                                </div>
+
                                 <div className="form-group">
                                     <label htmlFor="username">Username</label>
                                     <Input
@@ -173,6 +207,20 @@ export default class Register extends Component {
                                         onChange={this.onChangePassword}
                                         validations={[required, vpassword]}
                                     />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="role">Role</label>
+                                    <Select className="form-control"
+                                        aria-label="Default select example"
+                                        name="role"
+                                        onChange={this.onChangeRole}
+                                        validations={[required]}
+                                        value={this.state.role}
+                                    >
+                                        <option value="1">Student</option>
+                                        <option value="2">Teacher</option>
+                                        <option value="3">Organization</option>
+                                    </Select>
                                 </div>
 
                                 <div className="form-group">

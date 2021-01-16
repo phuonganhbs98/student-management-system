@@ -24,53 +24,53 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-const isAdmin = (req, res, next) => {
+const isTeacher = (req, res, next) => {
     User.findByPk(req.userId).then(user => {
         user.getRoles().then(roles => {
             for(let i=0; i<roles.length; i++){
-                if(roles[i].name==='admin'){
+                if(roles[i].name==='teacher'){
                     next();
                     return;
                 }
             }
 
             res.status(403).send({
-                message: "Require Admin Role!"
+                message: "Require Teacher Role!"
             });
             return ;
         });
     })
 }
 
-const isModerator = (req, res, next) => {
+const isOrganization = (req, res, next) => {
     User.findByPk(req.userId).then(user => {
         user.getRoles().then(roles => {
             for(let i=0; i< roles.length; i++){
-                if(roles[i].name === "moderator"){
+                if(roles[i].name === "organization"){
                     next();
                     return;
                 }
             }
 
             res.status(403).send({
-                message: "Require Moderator Role!"
+                message: "Require Organization Role!"
             })
         })
     })
 }
 
-const isModeratorOrAdmin= (req, res, next) => {
+const isTeacherOrOrganization= (req, res, next) => {
     User.findByPk(req.userId).then(user => {
         user.getRoles().then(roles => {
             for(let i =0; i<roles.length; i++){
-                if(roles[i].name === "admin" || roles[i].name === "moderator"){
+                if(roles[i].name === "teacher" || roles[i].name === "organization"){
                     next();
                     return;
                 }
             }
 
             res.status(403).send({
-                message: "Require moderator or admin role!"
+                message: "Require organization or teacher role!"
             })
         })
     })
@@ -78,9 +78,9 @@ const isModeratorOrAdmin= (req, res, next) => {
 
 const authJwt = {
     verifyToken: verifyToken,
-    isAdmin: isAdmin,
-    isModerator: isModerator,
-    isModeratorOrAdmin: isModeratorOrAdmin
+    isTeacher: isTeacher,
+    isOrganization: isOrganization,
+    isTeacherOrOrganization: isTeacherOrOrganization
 }
 
 module.exports = authJwt

@@ -8,9 +8,9 @@ import Register from './components/register'
 import Login from './components/login'
 import Home from './components/home'
 import Profile from './components/profile'
-import BoardUser from './components/board-user'
-import BoardModerator from './components/board-moderator'
-import BoardAdmin from './components/board-admin'
+import BoardStudent from './components/board-student'
+import BoardOrganization from './components/board-organization'
+import BoardTeacher from './components/board-teacher'
 
 
 class App extends Component {
@@ -20,8 +20,8 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      showOrganizationBoard: false,
+      showTeacherBoard: false,
       currentUser: undefined
     };
   }
@@ -32,8 +32,8 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        showOrganizationBoard: user.roles.includes("ROLE_ORGANIZATION"),
+        showTeacherBoard: user.roles.includes("ROLE_TEACHER"),
       })
     }
   }
@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, showOrganizationBoard, showTeacherBoard } = this.state;
     return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -57,26 +57,26 @@ class App extends Component {
               </Link>
             </li>
 
-            {showModeratorBoard && (
+            {showOrganizationBoard && (
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                <Link to={"/organization"} className="nav-link">
+                  Organization Board
                 </Link>
               </li>
             )}
 
-            {showAdminBoard && (
+            {showTeacherBoard && (
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                <Link to={"/teacher"} className="nav-link">
+                  Teacher Board
                 </Link>
               </li>
             )}
 
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={"/student"} className="nav-link">
+                  Student
                 </Link>
               </li>
             )}
@@ -118,9 +118,9 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
+            <Route path="/student" component={BoardStudent} />
+            <Route path="/organization" component={BoardOrganization} />
+            <Route path="/teacher" component={BoardTeacher} />
           </Switch>
         </div>
       </div>

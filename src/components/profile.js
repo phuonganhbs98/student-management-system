@@ -30,6 +30,10 @@ export default class Profile extends Component {
                     {currentUser.id}
                 </p>
                 <p>
+                    <strong>Fullname:</strong>{" "}
+                    {currentUser.fullname}
+                </p>
+                <p>
                     <strong>Email:</strong>{" "}
                     {currentUser.email}
                 </p>

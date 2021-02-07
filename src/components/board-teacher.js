@@ -15,7 +15,7 @@ export default class BoardTeacher extends Component {
         UserService.getTeacherBoard()
             .then(
                 response => {
-                    console.log(response)
+                    // console.log(response)
                     this.setState({
                         content: response.data
                     });
@@ -33,7 +33,7 @@ export default class BoardTeacher extends Component {
     render() {
         let content = []
         if (this.state.content) {
-            console.log(this.state.content.users)
+            // console.log(this.state.content.users)
             this.state.content.users.forEach((element, index) => {
                 content = content.concat(
                     <tr key={index}>

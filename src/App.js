@@ -11,6 +11,7 @@ import Profile from './components/profile'
 import BoardStudent from './components/board-student'
 import BoardOrganization from './components/board-organization'
 import BoardTeacher from './components/board-teacher'
+import CreateClassForm from './components/create-class-form'
 
 
 class App extends Component {
@@ -71,6 +72,7 @@ class App extends Component {
                   Teacher Board
                 </Link>
               </li>
+
             )}
 
             {currentUser && (
@@ -78,6 +80,16 @@ class App extends Component {
                 <Link to={"/student"} className="nav-link">
                   Student
                 </Link>
+              </li>)}
+
+            {showTeacherBoard && (
+              <li className="nav-item">
+                <Link to={{
+                  pathname: "/classes/create",
+                  username: currentUser.username
+                }} className="nav-link">
+                  Create class
+              </Link>
               </li>
             )}
           </div>
@@ -121,6 +133,7 @@ class App extends Component {
             <Route path="/student" component={BoardStudent} />
             <Route path="/organization" component={BoardOrganization} />
             <Route path="/teacher" component={BoardTeacher} />
+            <Route path="/classes/create" component={CreateClassForm} />
           </Switch>
         </div>
       </div>

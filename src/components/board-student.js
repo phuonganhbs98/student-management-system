@@ -16,7 +16,7 @@ export default class BoardStudent extends Component {
         UserService.getStudentBoard()
             .then(
                 response => {
-                    console.log(response)
+                    // console.log(response)
                     this.setState({
                         content: response.data
                     });
@@ -34,7 +34,7 @@ export default class BoardStudent extends Component {
     render() {
         let content = []
         if (this.state.content) {
-            console.log(this.state.content.users)
+            // console.log(this.state.content.users)
             this.state.content.users.forEach((element, index) => {
                 content = content.concat(
                     <tr key={index}>
